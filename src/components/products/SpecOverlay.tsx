@@ -100,9 +100,9 @@ export default function SpecOverlay({
     <div className="absolute inset-0 z-50">
       {/* backdrop */}
       <div
-        className="absolute inset-0 bg-neutral-900/65 backdrop-blur-[2px]"
-        onClick={onClose}
-      />
+  className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-neutral-900/60 backdrop-blur-[2px] pointer-events-auto"
+  onClick={onClose}
+/>
 
       {/* content */}
       <div className="relative mx-auto max-w-6xl px-10 py-14 pointer-events-none">

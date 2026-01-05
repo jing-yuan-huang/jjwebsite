@@ -1,40 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "INNOVATIONS", href: "#innovations" },
   { label: "UPDATES", href: "#updates" },
   { label: "ABOUT", href: "#about" },
-  
 ];
 
-const THRESHOLD = 532; 
+const THRESHOLD = 532;
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const showCenterNav = useMemo(() => pathname === "/", [pathname]);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY >= THRESHOLD);
     };
 
-    onScroll(); 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 ">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div
         className={[
           "transition-colors duration-300",
-          scrolled ? "bg-white/90 backdrop-blur-md border-b border-neutral-200" : "bg-transparent",
+          scrolled
+            ? "bg-white/90 backdrop-blur-md border-b border-neutral-200"
+            : "bg-transparent",
         ].join(" ")}
       >
         <div className="mx-auto max-w-6xl px-6">
-          <div className="relative h-16 flex items-center ">
+          <div className="relative h-16 flex items-center">
             {/* Left: Logo */}
             <Link href="/" className="flex items-center invert-header">
               <img
@@ -44,21 +49,25 @@ export default function Header() {
               />
             </Link>
 
-            {/* Center: Nav */}
-            <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-10 tracking-widest invert-header">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={[
-                    "type-ui tracking-tight transition-colors",
-                    scrolled ? "text-neutral-900" : " hover:text-white",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
+            {/* Center: Nav（只在首頁） */}
+            {showCenterNav && (
+              <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-10 tracking-widest invert-header">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className={[
+                      "type-ui tracking-tight transition-colors",
+                      scrolled
+                        ? "text-neutral-900"
+                        : "hover:text-white",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            )}
 
             {/* Right: Contact */}
             <div className="ml-auto">
