@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --type-h1:   700 72px/90% var(--font-sans);
+  --type-h2:   600 32px/1.25 var(--font-sans);
+  --type-h3:   600 24px/1.3 var(--font-sans);
+  --type-h3:   600 24px/1.3 var(--font-sans);
+
+  --type-body-lg: 400 18px/1.6 var(--font-sans);
+  --type-body:    400 16px/1.6 var(--font-sans);
+  --type-body-sm: 400 14px/1.6 var(--font-sans);
+
+  --type-ui: 500 16px/80% var(--font-sans);
+
+  --tracking-tight: -0.05em;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+
+.trustby-track {
+  animation: trustby-marquee 22s linear infinite;
+}
+
+.trustby-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes trustby-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+.invert-header {
+  mix-blend-mode: difference;
+}
+
+.invert-header a,
+.invert-header nav,
+.invert-header span {
+  color: white;
+}
+
+.invert-header img {
+  filter: invert(1);
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
