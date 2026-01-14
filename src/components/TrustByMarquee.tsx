@@ -11,8 +11,11 @@ type Logo = {
     { alt: "ganzin", src: "/logos/ganzin.svg" },
     { alt: "cellid", src: "/logos/cellid.svg" },
     { alt: "PORTECH", src: "/logos/portech.svg" },
-    { alt: "Synopsys", src: "/logos/synopsys.svg" },
     { alt: "Epson", src: "/logos/epson.svg" },
+    { alt: "Avegant", src: "/logos/avegant.svg" },
+    { alt: "Foxconn", src: "/logos/foxconn.svg" },
+    { alt: "qualcom", src: "/logos/qualcom.svg" },
+    { alt: "GIS", src: "/logos/gis.svg" },
   ];
   
   export default function TrustByMarquee() {
@@ -21,9 +24,8 @@ type Logo = {
   
     return (
       <section className="w-full">
-        <div className="mx-auto max-w-7xl px-6 py-7">
+        <div className=" px-6 py-8">
          
-          <p className="mb-3 text-xs tracking-tight ">TRUSTED BY</p>
   
           <div className= "relative overflow-hidden bg-white">
 

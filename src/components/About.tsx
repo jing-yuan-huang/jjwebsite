@@ -1,11 +1,11 @@
 export default function AboutPage() {
     return (
       <main className="bg-white">
-        <section className="mx-auto max-w-6xl px-6 py-28">
+        <section className="mx-auto px-15 py-28">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 items-start">
             {/* Left title */}
             <div className="md:col-span-4">
-              <h1 className="whitespace-pre-line text-5xl md:text-6xl font-semibold leading-[0.95] tracking-tight text-neutral-900">
+              <h1 className="whitespace-pre-line text-5xl md:text-6xl leading-[0.95] tracking-tight text-neutral-900">
                 ABOUT{"\n"}JORJIN
               </h1>
             </div>

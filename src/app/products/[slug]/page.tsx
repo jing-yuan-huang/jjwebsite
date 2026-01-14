@@ -10,6 +10,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const product = PRODUCTS[slug];
+  
 
   if (!product) return notFound();
 

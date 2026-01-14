@@ -4,7 +4,7 @@ type UpdateItem = {
     title: string;
     location: string;
     bg: string; // tailwind bg class
-    text?: string; // 文字顏色（可選）
+    text?: string; 
   };
   
   const UPDATES: UpdateItem[] = [
@@ -39,17 +39,17 @@ type UpdateItem = {
   export default function Updates() {
     return (
         <section className="bg- white">
-         <div className="mx-auto max-w-7xl px-6 md:px-12 space-y-32 mt-30">
+         <div className="mx-auto mt-30 ">
             {/* ===== Header ===== */}
-            <div className="mb-12 flex items-start justify-between">
-            <h2 className="type-[42px] md:text-[54px] font-semibold tracking-tight text-neutral-900">
+            <div className="mb-8 flex items-start justify-between px-15">
+            <h2 className="type-[42px] md:text-[54px] tracking-tight text-neutral-900">
                 UPDATES
             </h2>
 
             </div>
 
             {/* ===== Rows ===== */}
-            <div className="space-y-6">
+            <div>
             {UPDATES.map((item) => (
                 
                 <div
@@ -58,15 +58,15 @@ type UpdateItem = {
                     "border border-transparent",
                     item.bg,
                     item.text ?? "text-white",
-                    // hover 效果
+
                     "transition-all duration-300",
                     "group-hover:brightness-110",
                     ].join(" ")}
                 >
                     
                     {/* Left: Date */}
-                    <div className="md:col-span-6">
-                    <div className="text-3xl md:text-4xl font-semibold tracking-tight">
+                    <div className="md:col-span-6 px-10">
+                    <div className="text-3xl md:text-4xl  tracking-tight">
                         {item.date}
                     </div>
                     </div>
@@ -83,16 +83,6 @@ type UpdateItem = {
                         </div>
                         </div>
 
-                        {/* hover 箭頭 */}
-                        <span
-                        className={[
-                            "text-lg opacity-0 translate-x-[-4px]",
-                            "transition-all duration-300",
-                            "group-hover:opacity-100 group-hover:translate-x-0",
-                        ].join(" ")}
-                        aria-hidden
-                        >
-                        </span>
                     </div>
                     </div>
                 </div>

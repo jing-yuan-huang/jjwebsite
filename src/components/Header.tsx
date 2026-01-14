@@ -8,6 +8,7 @@ const navItems = [
   { label: "INNOVATIONS", href: "#innovations" },
   { label: "UPDATES", href: "#updates" },
   { label: "ABOUT", href: "#about" },
+  { label: "CONTACT US", href :"mailto:sales@jorjin.com" },
 ];
 
 const THRESHOLD = 532;
@@ -49,9 +50,9 @@ export default function Header() {
               />
             </Link>
 
-            {/* Center: Nav（只在首頁） */}
+            {/* Center: Nav */}
             {showCenterNav && (
-              <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-10 tracking-widest invert-header">
+              <nav className="absolute right-0 hidden md:flex items-center gap-10 tracking-widest invert-header">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
@@ -69,22 +70,6 @@ export default function Header() {
               </nav>
             )}
 
-            {/* Right: Contact */}
-            <div className="ml-auto">
-              <a
-                href="mailto:sales@jorjin.com"
-                className={[
-                  "inline-flex items-center gap-2 border px-4 py-2 text-xs font-semibold tracking-wider transition-colors",
-                  "rounded-full",
-                  "border-red-500",
-                  scrolled
-                    ? "text-neutral-900 bg-white hover:bg-red-50"
-                    : "bg-white/10 hover:bg-white/20 invert-header",
-                ].join(" ")}
-              >
-                CONTACT US <span aria-hidden>↗</span>
-              </a>
-            </div>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export type Product = {
 
   gallery: string[];
 
-  // ✅ 新格式
+ 
   designFeatureBlocks?: SpecBlock[];
   specBlocks: SpecBlock[];
 };
@@ -36,9 +36,7 @@ export const PRODUCTS: Record<string, Product> = {
       "/images/products/j7m/view-4.png",
     ],
   
-    // ✅ DESIGN FEATURE OF J7M（用 kv 形式塞兩欄清單）
-    // 你的 KVTable 是 label/value，所以我把左欄當 label，右欄當 value
-    // 這樣呈現會是兩欄對齊，且不需要新增 renderer
+  
     designFeatureBlocks: [
       {
         id: "j7m-feature",
@@ -55,7 +53,7 @@ export const PRODUCTS: Record<string, Product> = {
       },
     ],
   
-    // ✅ Optic（kv）
+    // Optic（kv）
     specBlocks: [
       {
         id: "j7m-optic",
@@ -69,30 +67,29 @@ export const PRODUCTS: Record<string, Product> = {
         Display Distance: 5M
         Color: 24-bit color
         Brightness: Typ. 1000 cd/m²
-        Camera: 8 MP
         `.trim(),
       },
   
-      // ✅ Camera（用 columns3 做 Parameter / M4.3WN / M4.51-L）
+      //  Camera
       {
         id: "j7m-camera",
-        layout: "columns3",
+        layout: "kv",
         title: "Camera",
-        columns: { left: "Parameter", middle: "M4.3WN", right: "M4.51-L" },
-        rows: [
-          { optic: "Module size (XYZ)", description: "125 × 40 × 27 mm", remark: "127 × 36 × 23.5 mm" },
-          { optic: "Operating temperature", description: "0–50°C", remark: "0–50°C" },
-          { optic: "Sensor", description: "OV9282", remark: "ams Mira130" },
-          { optic: "Baseline", description: "100 mm", remark: "" },
-          { optic: "Full Resolution", description: "1280 × 800", remark: "1080 × 720" },
-          { optic: "Binning Resolution", description: "640 × 400", remark: "544 × 360" },
-          { optic: "Hybrid Resolution", description: "N/A", remark: "848 × 480" },
-          { optic: "IR Filter", description: "850 nm", remark: "850 nm" },
-          { optic: "FOV (Calibrated) [h×v]", description: "66° × 44°", remark: "89° × 58°" },
-          { optic: "Min. Sensing Range (Full Mode)", description: "72 cm", remark: "30 cm" },
-          { optic: "Max. Sensing Range", description: "6 m", remark: "8 m" },
-          { optic: "Depth Accuracy", description: "0.3% @ 1 m", remark: "0.5% @ 1 m" },
-        ],
+        text: `
+        Module size (XYZ): 125 × 40 × 27 mm
+        Operating temperature: 0–50°C
+        Sensor: OV9282
+        Baseline: 100 mm
+        Full Resolution: 1280 × 800
+        Binning Resolution: 640 × 400
+        IR Filter: 850 nm
+        FOV (Calibrated) [h×v]: 66° × 44°
+        Min. Sensing Range (Full Mode): 72 cm
+        Max. Sensing Range: 6 m
+        Depth Accuracy: 0.3% @ 1 m
+        `.trim(),
+
+        
       },
     ],
   },
@@ -114,10 +111,9 @@ export const PRODUCTS: Record<string, Product> = {
       "/images/products/c9t2/view-4.png",
     ],
 
-    // ✅ C9T2 不需要 feature
+
     designFeatureBlocks: [],
 
-    // ✅ 三欄表格：一個 block
     specBlocks: [
       {
         id: "c9t2-spec",
@@ -229,7 +225,7 @@ export const PRODUCTS: Record<string, Product> = {
       "/images/products/hj1/view-4.png",
     ],
 
-    // ✅ HJ1 有 DESIGN FEATURE（同樣 kv）
+  
     designFeatureBlocks: [
       {
         id: "hj1-feature",
@@ -245,7 +241,7 @@ export const PRODUCTS: Record<string, Product> = {
       },
     ],
 
-    // ✅ Specification（kv）
+  
     specBlocks: [
       {
         id: "hj1-spec",
