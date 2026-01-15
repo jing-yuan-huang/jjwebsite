@@ -72,7 +72,7 @@ export default function Innovations() {
   <div >
 
     {/* ===== ODM & OUR PROJECT ===== */}
-      <div className="relative isolation-isolate
+    <div className="relative isolation-isolate
                       mt-40 mb-20
                       mx-[4vw]">
 
@@ -111,7 +111,7 @@ export default function Innovations() {
           </div>
 
         </div>
-      </div>
+    </div>
 
     {/* ===== selector ===== */}
     <div className="space-y-0 mb-[12vw] mx-[4vw]">

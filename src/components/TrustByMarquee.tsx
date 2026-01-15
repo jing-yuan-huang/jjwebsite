@@ -13,7 +13,7 @@ type Logo = {
     { alt: "PORTECH", src: "/logos/portech.svg" },
     { alt: "Epson", src: "/logos/epson.svg" },
     { alt: "Avegant", src: "/logos/avegant.svg" },
-    { alt: "Foxconn", src: "/logos/foxconn.svg" },
+    { alt: "Foxconn", src: "/logos/Foxconn.svg" },
     { alt: "qualcom", src: "/logos/qualcom.svg" },
     { alt: "GIS", src: "/logos/gis.svg" },
   ];
