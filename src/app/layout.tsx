@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Archivo } from 'next/font/google'
 
 const archivo = Archivo({
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className="min-h-screen">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

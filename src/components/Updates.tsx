@@ -41,54 +41,48 @@ type UpdateItem = {
         <section className="bg- white">
          <div className="mx-auto mt-30 ">
             {/* ===== Header ===== */}
-            <div className="mb-8 flex items-start justify-between px-15">
-            <h2 className="type-[42px] md:text-[54px] tracking-tight text-neutral-900">
-                UPDATES
+            <div className="mx-auto max-w-8xl px-6 md:px-15">
+            <h2 className="type-[42px] md:text-[96px] tracking-tight text-neutral-900">
+                News
             </h2>
 
             </div>
 
             {/* ===== Rows ===== */}
             <div>
-            {UPDATES.map((item) => (
-                
+              {UPDATES.map((item) => (
                 <div
-                    className={[
-                    "grid grid-cols-1 md:grid-cols-12 items-center px-6 py-10",
-                    "border border-transparent",
+                  key={item.date + item.title}
+                  className={[
+                    "w-full py-10",
                     item.bg,
                     item.text ?? "text-white",
-
-                    "transition-all duration-300",
-                    "group-hover:brightness-110",
-                    ].join(" ")}
+                    "transition-all duration-300 hover:brightness-110",
+                  ].join(" ")}
                 >
-                    
-                    {/* Left: Date */}
-                    <div className="md:col-span-6 px-10">
-                    <div className="text-3xl md:text-4xl  tracking-tight">
+                  {/* Text container */}
+                  <div className="mx-auto max-w-8xl px-6 md:px-15">
+                    <div className="flex items-center justify-between">
+                      {/* Date */}
+                      <div className="text-3xl md:text-4xl tracking-tight">
                         {item.date}
-                    </div>
-                    </div>
+                      </div>
 
-                    {/* Right: Event */}
-                    <div className="md:col-span-6 text-right">
-                    <div className="flex items-center justify-end gap-3">
-                        <div>
-                        <div className="text-xl md:text-2xl font-semibold">
-                            {item.title}
+                      {/* Title + Location */}
+                      <div className="text-right">
+                        <div className="text-3xl md:text-4xl tracking-tight">
+                          {item.title}
                         </div>
                         <div className="mt-2 text-sm opacity-80">
-                            {item.location}
+                          {item.location}
                         </div>
-                        </div>
-
+                      </div>
                     </div>
-                    </div>
+                  </div>
                 </div>
-               
-            ))}
+              ))}
             </div>
+
         </div>
         </section>
     );

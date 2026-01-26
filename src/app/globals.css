@@ -47,7 +47,19 @@ body {
 }
 
 
-
 html {
   scroll-behavior: smooth;
+}
+
+
+.trustby-viewport { overflow: hidden; }
+
+.trustby-track {
+  will-change: transform;
+  animation: trustby-marquee 22s linear infinite;
+}
+
+@keyframes trustby-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(var(--marquee-shift, 50%) * -1)); }
 }
