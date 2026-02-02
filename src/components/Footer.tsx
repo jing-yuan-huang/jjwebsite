@@ -87,9 +87,8 @@ export default function Footer() {
                 >
                 sales@jorjin.com
                 </a>
-                <p className="mt-4 text-[14px] leading-snug text-neutral-900/70">
-                Schedule a quick call to learn how MetaSpace can turn your regional data into a powerful
-                advantage.
+                <p className="mt-4 text-[14px] leading-snug text-neutral-900/70 tracking-tight">
+                Schedule a quick call to explore how JORJIN can help transform your ideas into scalable <br/> real-world AR products.
                 </p>
             </div>
         </div>
@@ -102,22 +101,22 @@ export default function Footer() {
             {/* Left: Big title */}
        
             <div className="text-[clamp(64px,5vw,96px)] leading-[0.9] tracking-tight text-neutral-900">
-            CONNECT
+            Contact
             <br />
-            WITH US
+            Us Anytime
             </div>
         
         </div>
 
         {/* Center */}
         <div className="col-span-12 md:col-span-4 md:text-center">
-            <a href="#top" className="inline-block leading-none underline underline-offset-4">
+            <a href="#top" className="inline-block leading-none underline underline-offset-4 tracking-tight">
             Back to top ↗
             </a>
         </div>
 
         {/* Right */}
-        <div className="col-span-12 md:col-span-4 md:text-right">
+        <div className="col-span-12 md:col-span-4 md:text-right tracking-tight ">
             <div className="leading-none">Copyright © JORJIN 2026</div>
         </div>
         </div>

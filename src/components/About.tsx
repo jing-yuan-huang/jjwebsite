@@ -6,7 +6,7 @@ export default function AboutPage() {
             {/* Left title */}
             <div className="md:col-span-4">
               <h1 className="whitespace-pre-line text-5xl md:text-6xl leading-[0.95] tracking-tight text-neutral-900">
-                ABOUT{"\n"}JORJIN
+                About{"\n"}Jorjin
               </h1>
             </div>
   
