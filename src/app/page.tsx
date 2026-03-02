@@ -1,6 +1,6 @@
-import Innovations from "../components/Innovations/Innovations";
+import Innovations from "../components/sections/Innovations";
 import TrustByMarquee from "../components/TrustByMarquee";
-import Updates from "../components/Updates";
+import Updates from "../components/News";
 import About from "../components/About";
 //import Contact from "../components/Contact";
 
@@ -20,21 +20,29 @@ export default function HomePage() {
 
       <section>
         <TrustByMarquee />
-
-        
-          <Innovations />
-        
-
-        <section id="updates">
-          <Updates />
-        </section>
-
-        <section id="about">
-          <About />
-        </section>
-
-        
       </section>
+
+      <section id="smartglasses">
+        <Innovations variant="smartglasses" />
+      </section>
+
+      <section id="module">
+        <Innovations variant="module" />
+      </section>
+
+      <section id="metaspace">
+        <Innovations variant="metaspace" />
+      </section>
+
+      <section id="updates">
+        <Updates />
+      </section>
+
+      <section id="about">
+        <About />
+      </section>
+        
+      
     </main>
   );
 }

@@ -1,29 +1,54 @@
-import type { SpecBlock } from "../../types/spec";
+import type { SpecBlock } from "@/types/spec";
 
 export type Product = {
-  slug: "j7m" | "c9t2" | "hj1";
+  slug:
+    | "j7m"
+    | "c9t2"
+    | "hj1"
+    | "j7ef-gaze"
+    | "j7ef-plus"
+    | "j7ef"
+    | "j7ef-plus-hb"
+    | "j7ef-plus-hh";
 
-  titleTop: string;
-  titleBottom: string;
-  category: string;
-  specButtonText: string;
+  // must 
+  listTitle: string;
+  listSubtitle: string[];
+  listPic: string;
+  group: "ultraLight" | "heavyDuty" | "jReality";
 
-  heroImage: string;
-  theme: "dark" | "light";
-  heroBgClass: string;
+  // page
+  hasDetailPage?: boolean;
 
-  gallery: string[];
-
- 
+  // detail（
+  titleTop?: string;
+  titleBottom?: string;
+  category?: string;
+  specButtonText?: string;
+  heroImage?: string;
+  theme?: "dark" | "light";
+  heroBgClass?: string;
+  gallery?: string[];
   designFeatureBlocks?: SpecBlock[];
-  specBlocks: SpecBlock[];
+  specBlocks?: SpecBlock[];
 };
 
-export const PRODUCTS: Record<string, Product> = {
+export const PRODUCTS: Record<Product["slug"], Product> = {
+  
   j7m: {
+
     slug: "j7m",
+
+    listTitle: "J7M \n Industrial",
+    listSubtitle:[ 
+      "Industrial-Grade",
+       "Head-Mounted AR Solution",
+      ],
+    listPic: "/images/products/j7m/view-2.png",
+    group: "heavyDuty",
+   
     titleTop: "J7M",
-    titleBottom: "AR Glasses",
+    titleBottom: "Industrial",
     category: "INDUSTRIAL\nAR SOLUTION",
     specButtonText: "J7M SPEC",
     theme: "dark",
@@ -53,7 +78,7 @@ export const PRODUCTS: Record<string, Product> = {
       },
     ],
   
-    // Optic（kv）
+    
     specBlocks: [
       {
         id: "j7m-optic",
@@ -70,7 +95,7 @@ export const PRODUCTS: Record<string, Product> = {
         `.trim(),
       },
   
-      //  Camera
+    
       {
         id: "j7m-camera",
         layout: "kv",
@@ -94,11 +119,102 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
   
+  hj1: {
+
+    slug: "hj1",
+
+    listTitle: "HJ1 \n Eye-Tracking ",
+    listSubtitle:[
+       "The World’s Smallest Eye-Tracking", 
+       "AR Reference Platform",
+    ],
+    listPic:"/images/products/hj1/view-4.png",
+    group: "ultraLight",
+
+    titleTop: "HJ1",
+    titleBottom: "Eye-Tracking",
+    category: "ULTRA-LIGHT\nAR GLASSES",
+    specButtonText: "HJ1 SPEC",
+    theme: "light",
+    heroBgClass: "bg-neutral-200",
+    heroImage: "/images/products/hj1/hero.png",
+    gallery: [
+      "/images/products/hj1/view-1.png",
+      "/images/products/hj1/view-2.png",
+      "/images/products/hj1/view-3.png",
+      "/images/products/hj1/view-4.png",
+    ],
+
+  
+    designFeatureBlocks: [
+      {
+        id: "hj1-feature",
+        layout: "kv",
+        title: "DESIGN FEATURE",
+        text: `
+        Feature: Equipped with sRGB Micro-LED Display
+        Optics: Ultra-thin Waveguide Optics
+        Module: Integrated Eye-tracking Module &
+        Nose-pad: Detachable Nose-pad
+        Lens: Direct Prescription Lens Integration
+        `.trim(),
+      },
+    ],
+
+  
+    specBlocks: [
+      {
+        id: "hj1-spec",
+        layout: "kv",
+        title: "Specification of\nHJ1",
+        text: `
+        Weight: 46g
+        Material: Plastic
+        Nosepads: Replaceable
+        Optics technology: Waveguides
+        Ocularity: Monocular
+        Passthrough: 85%
+        ECD: 20%~80%
+        Eye Tracking: 2 eye cam
+        Prescription Lens: direct-bond
+        DFOV: hFOV 24°, vFOV 18°
+        Display: uLED Micro-projector
+        Resolution: 640×480
+        Brightness: 2000 nits
+        Eye Relief: 17 mm
+
+        Eye Box: 7.58mm × 8.61mm
+        Processor: Cortex A32 + M55
+        Battery: 225 mAh
+        BT: Bluetooth BT/BLE 5.4
+        Speakers: 2 stereo speakers
+        Audio DSP: Hi-Fi 5
+        Microphones: 4 mics (Noise Cancellation)
+        Antenna: FPC
+        I/O: POGO 4 pin
+        Camera: 5MP
+        Wi-Fi: a/b/g/n
+        Physical button: Power button only
+        Touch pad: Volume control & further features
+        `.trim(),
+      },
+    ],
+  },
 
   c9t2: {
+
     slug: "c9t2",
+
+    listTitle: "C9T2 \n Binocular Display ",
+    listSubtitle: [ 
+      "Dual-Eye Ultra-Light",
+      "AR Glasses Platform",
+    ],
+    listPic: "/images/products/c9t2/view-4.png",
+    group: "ultraLight",
+
     titleTop: "C9T2",
-    titleBottom: "Smart Glasses",
+    titleBottom: "Binocular Display",
     category: "ULTRA-LIGHT\nAR GLASSES",
     specButtonText: "C9T2 SPEC",
     theme: "light",
@@ -209,75 +325,68 @@ export const PRODUCTS: Record<string, Product> = {
     ],
   },
 
-  hj1: {
-    slug: "hj1",
-    titleTop: "HJ1 AI",
-    titleBottom: "SMART Glasses",
-    category: "ULTRA-LIGHT\nAR GLASSES",
-    specButtonText: "HJ1 SPEC",
-    theme: "light",
-    heroBgClass: "bg-neutral-200",
-    heroImage: "/images/products/hj1/hero.png",
-    gallery: [
-      "/images/products/hj1/view-1.png",
-      "/images/products/hj1/view-2.png",
-      "/images/products/hj1/view-3.png",
-      "/images/products/hj1/view-4.png",
-    ],
-
   
-    designFeatureBlocks: [
-      {
-        id: "hj1-feature",
-        layout: "kv",
-        title: "DESIGN FEATURE",
-        text: `
-        Feature: Equipped with sRGB Micro-LED Display
-        Optics: Ultra-thin Waveguide Optics
-        Module: Integrated Eye-tracking Module &
-        Nose-pad: Detachable Nose-pad
-        Lens: Direct Prescription Lens Integration
-        `.trim(),
-      },
-    ],
 
-  
-    specBlocks: [
-      {
-        id: "hj1-spec",
-        layout: "kv",
-        title: "Specification of\nHJ1",
-        text: `
-        Weight: 46g
-        Material: Plastic
-        Nosepads: Replaceable
-        Optics technology: Waveguides
-        Ocularity: Monocular
-        Passthrough: 85%
-        ECD: 20%~80%
-        Eye Tracking: 2 eye cam
-        Prescription Lens: direct-bond
-        DFOV: hFOV 24°, vFOV 18°
-        Display: uLED Micro-projector
-        Resolution: 640×480
-        Brightness: 2000 nits
-        Eye Relief: 17 mm
 
-        Eye Box: 7.58mm × 8.61mm
-        Processor: Cortex A32 + M55
-        Battery: 225 mAh
-        BT: Bluetooth BT/BLE 5.4
-        Speakers: 2 stereo speakers
-        Audio DSP: Hi-Fi 5
-        Microphones: 4 mics (Noise Cancellation)
-        Antenna: FPC
-        I/O: POGO 4 pin
-        Camera: 5MP
-        Wi-Fi: a/b/g/n
-        Physical button: Power button only
-        Touch pad: Volume control & further features
-        `.trim(),
-      },
+  "j7ef-gaze": {
+    slug: "j7ef-gaze",
+    listTitle: "J-Reality J7EF Gaze",
+    listSubtitle: [
+      "Eye-Tracking For Metaverse",
     ],
+    listPic: "/images/products/jreality/j7ef-gaze.png",
+    group: "jReality",
+    hasDetailPage: false,
   },
+
+  "j7ef-plus": {
+    slug: "j7ef-plus",
+    listTitle: "J-Reality J7EF Plus",
+    listSubtitle: [
+      "An Enhanced Tool",
+      "For Scene Understanding",
+    ],
+    listPic: "/images/products/jreality/j7ef-plus.png",
+    group: "jReality",
+    hasDetailPage: false,
+  },
+
+  "j7ef": {
+    slug: "j7ef",
+    listTitle: "J-Reality J7EF",
+    listSubtitle: [
+      "Incredible Vision",
+    ],
+    listPic: "/images/products/jreality/j7ef.png",
+    group: "jReality",
+    hasDetailPage: false,
+  },
+
+  "j7ef-plus-hb": {
+    slug: "j7ef-plus-hb",
+    listTitle: "J-Reality J7EF Plus HB",
+    listSubtitle: [
+      "High-Brightness",
+      "Head-Mounted AR Solution",
+    ],
+    listPic: "/images/products/jreality/j7ef-plus-hb.png",
+    group: "jReality",
+    hasDetailPage: false,
+  },
+
+  "j7ef-plus-hh": {
+    slug: "j7ef-plus-hh",
+    listTitle: "J-Reality J7EF Plus HH",
+    listSubtitle: [
+      "Heavy-Duty",
+      "Helmet-Integrated AR System"
+    ],
+    listPic: "/images/products/jreality/j7ef-plus-hh.png",
+    group: "jReality",
+    hasDetailPage: false,
+  },
+
+
+
+  
 };

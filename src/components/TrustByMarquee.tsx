@@ -53,14 +53,11 @@ export default function TrustByMarquee() {
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white via-white/90 to-transparent" />
 
           <div ref={viewportRef} className="trustby-viewport">
-            {/* 注意：動畫位移用 CSS 變數依 copies 自動算 */}
+      
             <div
               className="trustby-track flex w-max items-center gap-12 py-4"
               style={
                 {
-                  // 跑完「1 組」的距離 = 100% / copies
-                  // 例如 copies=4 -> 跑 -25%
-                  // copies=6 -> 跑 -16.666%
                   ["--marquee-shift" as any]: `${100 / copies}%`,
                 } as React.CSSProperties
               }

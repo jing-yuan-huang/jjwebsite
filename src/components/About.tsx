@@ -13,8 +13,8 @@ export default function AboutPage() {
             {/* Right copy */}
             <div className="md:col-span-8 md:pt-2">
               <p className="max-w-2xl text-center md:text-right ml-auto text-base md:text-lg font-medium leading-snug text-neutral-900">
-                JORJIN Technologies specializes in AR/XR smart glasses and
-                immersive interaction solutions.
+                JORJIN Technologies specializes in AR/XR smart glasses <br/>
+                and immersive interaction solutions
               </p>
   
               <p className="mt-4 max-w-2xl text-center md:text-right ml-auto text-sm leading-relaxed text-neutral-500">
