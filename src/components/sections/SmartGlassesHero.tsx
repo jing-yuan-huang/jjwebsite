@@ -3,24 +3,27 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT } from "@/lib/homeLocale";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SmartGlassesHero() {
+export default function SmartGlassesHero({ locale = "en" }: { locale?: HomeLocale }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoBoxRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  const t = HOME_TEXT[locale].hero;
 
   const [active, setActive] = useState(0);
 
   const slides = useMemo(
     () => [
-      { src: "/videos/odm2.mp4", subtitle: "Heavy-Duty AR Headset" },
-      { src: "/videos/hj1.mp4", subtitle: "Ultra-Light AR Glasses"},
-      { src: "/videos/c9t2.mp4", subtitle:  "Ultra-Light AR Glasses" },
+      { src: "/videos/odm2.mp4", subtitle: t.slides[0].subtitle },
+      { src: "/videos/hj1.mp4", subtitle: t.slides[1].subtitle },
+      { src: "/videos/c9t2.mp4", subtitle: t.slides[2].subtitle },
     ],
-    []
+    [t]
   );
 
   useLayoutEffect(() => {
@@ -122,8 +125,12 @@ export default function SmartGlassesHero() {
                          mix-blend-difference
                          tracking-tight"
             >
-              AR Smart<br />
-              Glasses
+              {t.title.split("\n").map((line, i) => (
+                <span key={`${line}-${i}`}>
+                  {line}
+                  {i === 0 ? <br /> : null}
+                </span>
+              ))}
             </h2>
 
             <p

@@ -1,91 +1,78 @@
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT } from "@/lib/homeLocale";
+
 type UpdateItem = {
-    id: string;
-    date: string;
-    title: string;
-    location: string;
-    bg: string; // tailwind bg class
-    text?: string; 
-  };
-  
-  const UPDATES: UpdateItem[] = [
-    {
-      id: "ces",
-      date: "0106 - 0109",
-      title: "2026 CES",
-      location: "Las Vegas",
-      bg: "bg-[#A6261C]",
-      text: "text-white",
-   
-    },
-    {
-      id: "milo",
-      date: "0131 - 0202",
-      title: "2026 MILO",
-      location: "Milan",
-      bg: "bg-[#E0472A]",
-      text: "text-white",
-    },
-    {
-      id: "mwc",
-      date: "0302 - 0305",
-      title: "2026 MWC",
-      location: "Barcelona",
-      bg: "bg-[#0F171A]",
-      text: "text-white",
-    },
-  ];
-  
+  id: string;
+  date: string;
+  title: string;
+  location: string;
+  bg: string; // tailwind bg class
+  text?: string;
+};
 
-  export default function Updates() {
-    return (
-        <section className="bg- white">
-         <div className="mx-auto mt-30 ">
-            {/* ===== Header ===== */}
-            <div className="mx-auto max-w-8xl px-6 md:px-15">
-            <h2 className="type-[42px] md:text-[96px] tracking-tight text-neutral-900">
-                News
-            </h2>
+const UPDATE_STYLE = [
+  { id: "ces", bg: "bg-[#A6261C]", text: "text-white" },
+  { id: "milo", bg: "bg-[#E0472A]", text: "text-white" },
+  { id: "mwc", bg: "bg-[#0F171A]", text: "text-white" },
+];
 
-            </div>
+export default function Updates({ locale = "en" }: { locale?: HomeLocale }) {
+  const t = HOME_TEXT[locale].news;
+  const updates: UpdateItem[] = t.updates.map((u) => {
+    const style = UPDATE_STYLE.find((s) => s.id === u.id);
+    return {
+      ...u,
+      bg: style?.bg ?? "bg-neutral-900",
+      text: style?.text ?? "text-white",
+    };
+  });
 
-            {/* ===== Rows ===== */}
-            <div>
-              {UPDATES.map((item) => (
-                <div
-                  key={item.date + item.title}
-                  className={[
-                    "w-full py-10",
-                    item.bg,
-                    item.text ?? "text-white",
-                    "transition-all duration-300 hover:brightness-110",
-                  ].join(" ")}
-                >
-                  {/* Text container */}
-                  <div className="mx-auto max-w-8xl px-6 md:px-15">
-                    <div className="flex items-start justify-between">
-                      {/* Date */}
-                      <div className="text-[clamp(18px,3vw,48px)] tracking-tight">
-                        {item.title}
-                      </div>
+  return (
+    <section className="bg- white">
+      <div className="mx-auto mt-30 ">
+        {/* ===== Header ===== */}
+        <div className="mx-auto max-w-8xl px-6 md:px-15">
+          <h2 className="type-[42px] md:text-[96px] tracking-tight text-neutral-900">
+            {t.title}
+          </h2>
+        </div>
 
-                      {/* Title + Location */}
-                      <div className="text-right">
-                        <div className="text-[clamp(18px,3vw,48px)] tracking-tight">
-                          {item.date}
-                        </div>
-                        <div className="mt-2 text-l opacity-80">
-                          {item.location}
-                        </div>
-                      </div>
+        {/* ===== Rows ===== */}
+        <div>
+          {updates.map((item) => (
+            <div
+              key={item.date + item.title}
+              className={[
+                "w-full py-10",
+                item.bg,
+                item.text ?? "text-white",
+                "transition-all duration-300 hover:brightness-110",
+              ].join(" ")}
+            >
+              {/* Text container */}
+              <div className="mx-auto max-w-8xl px-6 md:px-15">
+                <div className="flex items-start justify-between">
+                  {/* Date */}
+                  <div className="text-[clamp(18px,3vw,48px)] tracking-tight">
+                    {item.title}
+                  </div>
+
+                  {/* Title + Location */}
+                  <div className="text-right">
+                    <div className="text-[clamp(18px,3vw,48px)] tracking-tight">
+                      {item.date}
+                    </div>
+                    <div className="mt-2 text-l opacity-80">
+                      {item.location}
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-
+          ))}
         </div>
-        </section>
-    );
-    }
-
+      </div>
+    </section>
+  );
+}
   

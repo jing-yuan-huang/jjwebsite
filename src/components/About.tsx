@@ -1,4 +1,10 @@
-export default function AboutPage() {
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT } from "@/lib/homeLocale";
+
+export default function AboutPage({ locale = "en" }: { locale?: HomeLocale }) {
+    const t = HOME_TEXT[locale].about;
+    const subtitleLines = t.subtitle.split("\n");
+    const bodyLines = t.body.split("\n");
     return (
       <main className="bg-white">
         <section className="mx-auto px-15 py-28">
@@ -6,21 +12,28 @@ export default function AboutPage() {
             {/* Left title */}
             <div className="md:col-span-4">
               <h1 className="whitespace-pre-line text-5xl md:text-6xl leading-[0.95] tracking-tight text-neutral-900">
-                ABOUT{"\n"}JORJIN
+                {t.title}
               </h1>
             </div>
   
             {/* Right copy */}
             <div className="md:col-span-8 md:pt-2">
               <p className="max-w-2xl text-center md:text-right ml-auto text-base md:text-lg font-medium leading-snug text-neutral-900">
-                JORJIN Technologies specializes in AR/XR smart glasses <br/>
-                and immersive interaction solutions
+                {subtitleLines.map((line, i) => (
+                  <span key={`${line}-${i}`}>
+                    {line}
+                    {i === 0 ? <br /> : null}
+                  </span>
+                ))}
               </p>
   
               <p className="mt-4 max-w-2xl text-center md:text-right ml-auto text-sm leading-relaxed text-neutral-500">
-                With integrated expertise in optics, sensing, and communication, we
-                provide end-to-end ODM services, supporting businesses, academia,
-                and public sectors in creating smarter, immersive experiences.
+                {bodyLines.map((line, i) => (
+                  <span key={`${line}-${i}`}>
+                    {line}
+                    {i < bodyLines.length - 1 ? <br /> : null}
+                  </span>
+                ))}
               </p>
             </div>
           </div>

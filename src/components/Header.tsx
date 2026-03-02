@@ -4,18 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLenis } from "../app/providers";
-
-const leftNavItems = [
-  { label: "AR Smart Glasses", href: "#smartglasses" },
-  { label: "Module", href: "#module" },
-  { label: "MetaSpace", href: "#metaspace" },
-];
-
-const rightNavItems = [
-  { label: "News", href: "#updates" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "mailto:sales@jorjin.com" },
-];
+import { HOME_TEXT } from "@/lib/homeLocale";
 
 const THRESHOLD = 532;
 
@@ -24,12 +13,19 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const locale = pathname?.startsWith("/zh") ? "zh" : "en";
+  const t = HOME_TEXT[locale];
+
+  const leftNavItems = t.navLeft;
+  const rightNavItems = t.navRight;
+
   const headerBarRef = useRef<HTMLDivElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isHome = useMemo(() => pathname === "/", [pathname]);
+  const isHome = useMemo(() => pathname === "/" || pathname === "/zh", [pathname]);
   const allNavItems = [...leftNavItems, ...rightNavItems];
+  const homePath = locale === "zh" ? "/zh" : "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY >= THRESHOLD);
@@ -107,7 +103,7 @@ export default function Header() {
 
     
     if (!isHome) {
-      router.push(`/${href}`); 
+      router.push(`${homePath}${href}`); 
       return;
     }
 
@@ -143,64 +139,94 @@ export default function Header() {
             </nav>
 
             {/* Center Logo (Desktop) */}
-            <Link href="/" className="hidden md:block invert-header justify-self-center">
+            <Link href={homePath} className="hidden md:block invert-header justify-self-center">
               <img src="/images/jorjin-logo.svg" alt="JORJIN" className="h-6 w-auto" />
             </Link>
 
             {/* Right (Desktop) */}
-            <nav className="hidden md:flex items-center gap-10 tracking-widest invert-header justify-self-end">
-              {rightNavItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={linkClass(scrolled)}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
+            <div className="hidden md:flex items-center gap-8 tracking-widest invert-header justify-self-end">
+              <nav className="flex items-center gap-10">
+                {rightNavItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className={linkClass(scrolled)}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
+              <Link
+                href={locale === "zh" ? "/" : "/zh"}
+                className={[
+                  "type-ui tracking-tight border px-3 py-1 text-xs uppercase",
+                  scrolled
+                    ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
+                    : "text-white/90 border-white/40 hover:border-white",
+                ].join(" ")}
+                aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
+              >
+                {locale === "zh" ? "EN" : "中文"}
+              </Link>
+            </div>
 
             {/* Mobile */}
             <div className="md:hidden col-span-3 flex items-center justify-between">
-              <Link href="/" className="invert-header">
+              <Link href={homePath} className="invert-header">
                 <img src="/images/jorjin-logo.svg" alt="JORJIN" className="h-6 w-auto" />
               </Link>
 
-              <button
-                type="button"
-                aria-label="Open menu"
-                aria-expanded={menuOpen}
-                onClick={() => setMenuOpen((v) => !v)}
-                className={[
-                  "invert-header inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors",
-                  scrolled ? "hover:bg-neutral-100" : "hover:bg-white/10",
-                ].join(" ")}
-              >
-                <span className="relative block h-5 w-6">
-                  <span
-                    className={[
-                      "absolute left-0 top-0 block h-[2px] w-6 transition-all",
-                      scrolled ? "bg-neutral-900" : "bg-white",
-                      menuOpen ? "translate-y-[9px] rotate-45" : "",
-                    ].join(" ")}
-                  />
-                  <span
-                    className={[
-                      "absolute left-0 top-[9px] block h-[2px] w-6 transition-all",
-                      scrolled ? "bg-neutral-900" : "bg-white",
-                      menuOpen ? "opacity-0" : "opacity-100",
-                    ].join(" ")}
-                  />
-                  <span
-                    className={[
-                      "absolute left-0 top-[18px] block h-[2px] w-6 transition-all",
-                      scrolled ? "bg-neutral-900" : "bg-white",
-                      menuOpen ? "translate-y-[-9px] -rotate-45" : "",
-                    ].join(" ")}
-                  />
-                </span>
-              </button>
+              <div className="flex items-center gap-3">
+                <Link
+                  href={locale === "zh" ? "/" : "/zh"}
+                  className={[
+                    "invert-header inline-flex items-center justify-center px-2.5 py-1 text-xs uppercase border",
+                    scrolled
+                      ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
+                      : "text-white/90 border-white/40 hover:border-white",
+                  ].join(" ")}
+                  aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
+                >
+                  {locale === "zh" ? "EN" : "中文"}
+                </Link>
+
+                <button
+                  type="button"
+                  aria-label="Open menu"
+                  aria-expanded={menuOpen}
+                  onClick={() => setMenuOpen((v) => !v)}
+                  className={[
+                    "invert-header inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors",
+                    scrolled ? "hover:bg-neutral-100" : "hover:bg-white/10",
+                  ].join(" ")}
+                >
+                  <span className="relative block h-5 w-6">
+                    <span
+                      className={[
+                        "absolute left-0 top-0 block h-[2px] w-6 transition-all",
+                        scrolled ? "bg-neutral-900" : "bg-white",
+                        menuOpen ? "translate-y-[9px] rotate-45" : "",
+                      ].join(" ")}
+                    />
+                    <span
+                      className={[
+                        "absolute left-0 top-[9px] block h-[2px] w-6 transition-all",
+                        scrolled ? "bg-neutral-900" : "bg-white",
+                        menuOpen ? "opacity-0" : "opacity-100",
+                      ].join(" ")}
+                    />
+                    <span
+                      className={[
+                        "absolute left-0 top-[18px] block h-[2px] w-6 transition-all",
+                        scrolled ? "bg-neutral-900" : "bg-white",
+                        menuOpen ? "translate-y-[-9px] -rotate-45" : "",
+                      ].join(" ")}
+                    />
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 

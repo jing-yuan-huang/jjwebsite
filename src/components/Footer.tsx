@@ -1,4 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { HOME_TEXT } from "@/lib/homeLocale";
+
 export default function Footer() {
+  const pathname = usePathname();
+  const locale = pathname?.startsWith("/zh") ? "zh" : "en";
+  const t = HOME_TEXT[locale].footer;
+
     return (
       <footer className="bg-neutral-200 text-neutral-900">
         {/* <div className="absolute left-6 top-6 md:left-15 md:top-15"> */}
@@ -7,25 +16,25 @@ export default function Footer() {
           <div className="grid grid-cols-12 gap-y-12 gap-x-8">
             {/* Menu */}
             <div className="col-span-12 md:col-span-3">
-              <div className="text-[22px] tracking-tight">Menu</div>
+              <div className="text-[22px] tracking-tight">{t.menuTitle}</div>
               <div className="mt-4 h-px w-full bg-neutral-900/40" />
   
               <nav className="mt-6 space-y-4 text-[18px]">
-                <a href="#innovations" className="underline underline-offset-4">
-                  Product
+                <a href="#smartglasses" className="underline underline-offset-4">
+                  {t.menuProduct}
                 </a>
                 <a href="#updates" className="block underline underline-offset-4">
-                  Update
+                  {t.menuUpdate}
                 </a>
                 <a href="#about" className="block underline underline-offset-4">
-                  About JORJIN
+                  {t.menuAbout}
                 </a>
               </nav>
             </div>
   
             {/* Social */}
             <div className="col-span-12 md:col-span-3">
-              <div className="text-[22px] tracking-tight">Social</div>
+              <div className="text-[22px] tracking-tight">{t.socialTitle}</div>
               <div className="mt-4 h-px w-full bg-neutral-900/40" />
   
               <div className="mt-6 space-y-4 text-[18px]">
@@ -88,8 +97,7 @@ export default function Footer() {
                 sales@jorjin.com
                 </a>
                 <p className="mt-4 text-[14px] leading-snug text-neutral-900/70">
-                Schedule a quick call to learn how MetaSpace can turn your regional data into a powerful
-                advantage.
+                {t.ctaBody}
                 </p>
             </div>
         </div>
@@ -102,9 +110,12 @@ export default function Footer() {
             {/* Left: Big title */}
        
             <div className="text-[clamp(64px,5vw,96px)] leading-[0.9] tracking-tight text-neutral-900">
-            CONNECT
-            <br />
-            WITH US
+            {t.connect.split("\n").map((line, i) => (
+              <span key={`${line}-${i}`}>
+                {line}
+                {i === 0 ? <br /> : null}
+              </span>
+            ))}
             </div>
         
         </div>
@@ -112,7 +123,7 @@ export default function Footer() {
         {/* Center */}
         <div className="col-span-12 md:col-span-4 md:text-center">
             <a href="#top" className="inline-block leading-none underline underline-offset-4">
-            Back to top ↗
+            {t.backToTop}
             </a>
         </div>
 

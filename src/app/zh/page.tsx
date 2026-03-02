@@ -1,12 +1,12 @@
-import Innovations from "../components/sections/Innovations";
-import TrustByMarquee from "../components/TrustByMarquee";
-import Updates from "../components/News";
-import About from "../components/About";
-//import Contact from "../components/Contact";
+import Innovations from "../../components/sections/Innovations";
+import TrustByMarquee from "../../components/TrustByMarquee";
+import Updates from "../../components/News";
+import About from "../../components/About";
+//import Contact from "../../components/Contact";
 
-export default function HomePage() {
+export default function HomePageZh() {
   return (
-    <main className="w-full" lang="en">
+    <main className="w-full" lang="zh-Hant">
       <section className="relative h-screen w-full overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
@@ -23,26 +23,24 @@ export default function HomePage() {
       </section>
 
       <section id="smartglasses">
-        <Innovations variant="smartglasses" locale="en" />
+        <Innovations variant="smartglasses" locale="zh" />
       </section>
 
       <section id="module">
-        <Innovations variant="module" locale="en" />
+        <Innovations variant="module" locale="zh" />
       </section>
 
       <section id="metaspace">
-        <Innovations variant="metaspace" locale="en" />
+        <Innovations variant="metaspace" locale="zh" />
       </section>
 
       <section id="updates">
-        <Updates locale="en" />
+        <Updates locale="zh" />
       </section>
 
       <section id="about">
-        <About locale="en" />
+        <About locale="zh" />
       </section>
-        
-      
     </main>
   );
 }

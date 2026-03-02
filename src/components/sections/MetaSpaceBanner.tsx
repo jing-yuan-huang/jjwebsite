@@ -1,4 +1,9 @@
-export default function MetaSpaceBanner() {
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT } from "@/lib/homeLocale";
+
+export default function MetaSpaceBanner({ locale = "en" }: { locale?: HomeLocale }) {
+    const t = HOME_TEXT[locale].metaspace;
+    const bodyLines = t.body.split("\n");
     return (
       <div className="border border-neutral-200 bg-neutral-950">
         <div className="relative w-full overflow-hidden h-[min(100vh,900px)]">
@@ -19,15 +24,18 @@ export default function MetaSpaceBanner() {
           <div className="absolute top-6 md:top-15">
             
             <div className="whitespace-pre-line  text-[clamp(44px,5vw,96px)] tracking-tight leading-[0.95] text-white invert-header">
-              MetaSpace{"\n"}Platform
+              {t.title}
             </div>
           </div>
   
           <div className="absolute  bottom-6 md:bottom-15 tracking-tight text-white/80">
             <div className=" text-[clamp(14px,2vw,28px)] leading-[0.95] tracking-tight invert-header">
-              Immersive Interaction Platforms 
-              <br />
-              for Physical Spaces
+              {bodyLines.map((line, i) => (
+                <span key={`${line}-${i}`}>
+                  {line}
+                  {i < bodyLines.length - 1 ? <br /> : null}
+                </span>
+              ))}
             </div>
           </div>
   

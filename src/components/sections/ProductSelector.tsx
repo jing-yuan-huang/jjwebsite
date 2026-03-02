@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { ArrowIcon } from "@/components/ui/icons/ArrowIcon";
 import { PRODUCTS } from "@/app/data/products";
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT, PRODUCT_LIST_OVERRIDES } from "@/lib/homeLocale";
 
 type ProductSelectorItem = {
   id: string;
@@ -14,23 +16,27 @@ type ProductSelectorItem = {
   group: "ultraLight" | "heavyDuty" | "jReality";
 };
 
-function toSelectorItems(): ProductSelectorItem[] {
-  return Object.values(PRODUCTS).map((p) => ({
-    id: p.slug,
-    title: p.listTitle,
-    subtitle: p.listSubtitle,
-    image: p.listPic,
-    theme: p.theme,
-    href:
-  (p as any).hasDetailPage === false || p.group === "jReality"
-    ? undefined
-    : `/products/${p.slug}`,
-    group: p.group,
-  }));
+function toSelectorItems(locale: HomeLocale): ProductSelectorItem[] {
+  return Object.values(PRODUCTS).map((p) => {
+    const override = locale === "zh" ? (PRODUCT_LIST_OVERRIDES.zh as any)[p.slug] : null;
+    return {
+      id: p.slug,
+      title: override?.listTitle ?? p.listTitle,
+      subtitle: override?.listSubtitle ?? p.listSubtitle,
+      image: p.listPic,
+      theme: p.theme,
+      href:
+        (p as any).hasDetailPage === false || p.group === "jReality"
+          ? undefined
+          : `/products/${p.slug}`,
+      group: p.group,
+    };
+  });
 }
 
-export default function ProductSelector() {
-  const items = toSelectorItems();
+export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale }) {
+  const t = HOME_TEXT[locale].productSection;
+  const items = toSelectorItems(locale);
 
   const ultra = items.filter((i) => i.group === "ultraLight");
   const heavy = items.filter((i) => i.group === "heavyDuty");
@@ -146,10 +152,10 @@ export default function ProductSelector() {
       <div className="pt-10">
         <div className="mb-8">
           <h2 className="text-[clamp(40px,6vw,92px)] leading-[0.95] tracking-tight text-neutral-900">
-            Ultra-Light AR Glasses
+            {t.ultraTitle}
           </h2>
           <div className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
-            Lightweight AR platform for custom integration and enterprise deployment
+            {t.ultraSubtitle}
           </div>
         </div>
         <div className="border-t border-neutral-900">{ultra.map(renderRow)}</div>
@@ -159,10 +165,10 @@ export default function ProductSelector() {
       <div className="pt-16">
         <div className="mb-8">
           <h2 className="text-[clamp(40px,6vw,92px)] leading-[0.95] tracking-tight text-neutral-900">
-            Heavy-Duty AR Headset
+            {t.heavyTitle}
           </h2>
           <div className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
-            Rugged AR Platform for Industrial Deployment
+            {t.heavySubtitle}
           </div>
         </div>
         <div className="border-t border-neutral-900">{heavy.map(renderRow)}</div>
@@ -172,10 +178,10 @@ export default function ProductSelector() {
         <div className="pt-16">
           <div className="mb-8">
             <h2 className="text-[clamp(40px,6vw,92px)] leading-[0.95] tracking-tight text-neutral-900">
-              J-Reality
+              {t.jrTitle}
             </h2>
             <div className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
-             Reliable AR performance with outstanding value
+             {t.jrSubtitle}
             </div>
           </div>
           <div className="border-t border-neutral-900">{jr.map(renderRow)}</div>

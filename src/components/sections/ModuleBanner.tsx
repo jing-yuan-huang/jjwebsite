@@ -1,6 +1,10 @@
 import { ArrowIcon } from "../ui/icons/ArrowIcon";
+import type { HomeLocale } from "@/lib/homeLocale";
+import { HOME_TEXT } from "@/lib/homeLocale";
 
-export default function ModuleSection() {
+export default function ModuleSection({ locale = "en" }: { locale?: HomeLocale }) {
+    const t = HOME_TEXT[locale].module;
+    const bodyLines = t.body.split("\n");
     return (
       <section id="module" className="bg-white">
         <div className="mx-auto max-w-8xl px-6 py-10 md:px-15 md:py-[clamp(64px,8vw,160px)] ">
@@ -17,14 +21,16 @@ export default function ModuleSection() {
                 */}
 
                 <h2 className="text-[clamp(44px,5vw,96px)] leading-[0.95] tracking-tight text-neutral-900">
-                    AR Module
+                    {t.title}
                 </h2>
 
                 <p className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
-                    Offering a complete <br />
-                    range of wireless modules<br />
-                    covering WiFi, Sigfox, <br />
-                    BT/BLE connectivity.
+                    {bodyLines.map((line, i) => (
+                      <span key={`${line}-${i}`}>
+                        {line}
+                        {i < bodyLines.length - 1 ? <br /> : null}
+                      </span>
+                    ))}
                 </p>
             </div>
 

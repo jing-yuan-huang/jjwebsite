@@ -16,7 +16,7 @@ const archivo = Archivo({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-Hant" className={archivo.variable}>
+    <html lang="en" className={archivo.variable}>
       <body className="min-h-screen overflow-x-hidden">
         <Providers>
           <ScrollToTop />
