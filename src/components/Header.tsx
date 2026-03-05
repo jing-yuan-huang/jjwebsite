@@ -4,7 +4,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useLenis } from "../app/providers";
 import { HOME_TEXT } from "@/lib/homeLocale";
 
@@ -14,7 +14,6 @@ export default function Header() {
   const lenis = useLenis();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const locale = pathname?.startsWith("/zh") ? "zh" : "en";
   const t = HOME_TEXT[locale];
@@ -40,8 +39,7 @@ export default function Header() {
     return pathname === "/" ? "/zh" : `/zh${pathname}`;
   }, [locale, pathname]);
 
-  const search = searchParams.toString();
-  const toggleHref = `${togglePath}${search ? `?${search}` : ""}${hash}`;
+  const toggleHref = `${togglePath}${hash}`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY >= THRESHOLD);
