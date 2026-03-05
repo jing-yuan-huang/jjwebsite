@@ -1,7 +1,9 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Product } from "@/app/data/products";
+import type { SpecBlock } from "@/types/spec";
 import SpecOverlay from "./SpecOverlay";
 
 type ProductTemplateProps = {
@@ -20,21 +22,16 @@ export default function ProductTemplate({
   showGallery = true,
 }: ProductTemplateProps) {
   const [specOpen, setSpecOpen] = useState(false);
-
-  
-  const theme = (product as any).theme as "light" | "dark" | undefined;
-  const heroBgClass = (product as any).heroBgClass as string | undefined;
-  const heroImage = (product as any).heroImage as string | undefined;
-
-  const titleTop = (product as any).titleTop ?? (product as any).listTitle ?? "";
-  const titleBottom = (product as any).titleBottom ?? "";
-  const category = (product as any).category ?? "";
-  const specButtonText = (product as any).specButtonText ?? "SPEC";
-
-  const gallery = ((product as any).gallery ?? []) as string[];
-
-  const specBlocksSafe = ((product as any).specBlocks ?? []) as any[];
-  const designFeatureBlocks = (((product as any).designFeatureBlocks ?? []) as any[]) ?? [];
+  const theme = product.theme;
+  const heroBgClass = product.heroBgClass;
+  const heroImage = product.heroImage;
+  const titleTop = product.titleTop ?? product.listTitle ?? "";
+  const titleBottom = product.titleBottom ?? "";
+  const category = product.category ?? "";
+  const specButtonText = product.specButtonText ?? "SPEC";
+  const gallery = product.gallery ?? [];
+  const specBlocksSafe: SpecBlock[] = product.specBlocks ?? [];
+  const designFeatureBlocks: SpecBlock[] = product.designFeatureBlocks ?? [];
 
   const isDark = theme === "dark";
   const textMain = isDark ? "text-white" : "text-neutral-900";
@@ -105,7 +102,7 @@ export default function ProductTemplate({
                   <div className="mt-3 text-xs tracking-widest whitespace-pre-line text-neutral-500">{category}</div>
                 )}
 
-                {/* Spec button（只有真的有 specs 才顯示） */}
+                {/* Spec button */}
                 {canShowSpecs && (
                   <button
                     type="button"
@@ -122,7 +119,7 @@ export default function ProductTemplate({
               </aside>
             )}
 
-            {/* 右欄：圖片序列 */}
+            {/* Picture */}
             {canShowGallery && (
               <div className={showIntro ? "md:col-span-8" : "md:col-span-12"}>
                 <div className="space-y-6">

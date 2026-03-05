@@ -19,12 +19,12 @@ export default function Footer() {
               <div className="text-[22px] tracking-tight">{t.menuTitle}</div>
               <div className="mt-4 h-px w-full bg-neutral-900/40" />
   
-              <nav className="mt-6 space-y-4 text-[18px]">
-                <a href="#smartglasses" className="underline underline-offset-4">
+              <nav className="mt-6 flex flex-col items-start gap-4 text-left text-[18px]">
+                <a href="#smartglasses" className="block underline underline-offset-4">
                   {t.menuProduct}
                 </a>
                 <a href="#updates" className="block underline underline-offset-4">
-                  {t.menuUpdate}
+                  {locale === "zh" ? t.menuUpdate : "News"}
                 </a>
                 <a href="#about" className="block underline underline-offset-4">
                   {t.menuAbout}
@@ -68,13 +68,12 @@ export default function Footer() {
             {/* Company info (right) */}
             <div className="col-span-12 md:col-span-6">
               <div className="text-right text-[22px] tracking-tight">
-                JORJIN TECHNOLOGIES INC.
+                {t.companyName}
               </div>
               <div className="mt-4 h-px w-full bg-neutral-900/40" />
   
-              <div className="mt-6 text-right text-[18px] leading-relaxed text-neutral-900/70">
-                17F, No 239, Sec. 1, Datong Rd.<br />
-                Xizhi Dist., New Taipei City 22161, Taiwan
+              <div className="mt-6 text-right text-[18px] leading-relaxed text-neutral-900/70 whitespace-pre-line">
+                {t.address}
               </div>
   
               <a
@@ -104,12 +103,12 @@ export default function Footer() {
 
 
         {/* ===== Bottom row: 3 items bottom-aligned ===== */}
-        <div className="mt-16 md:mt-20 grid grid-cols-12 items-end text-[18px] text-neutral-900/80">
+        <div className="mt-24 md:mt-20 grid grid-cols-12 items-end text-[18px] text-neutral-900/80">
         {/* Left */}
         <div className="col-span-12 md:col-span-4">
             {/* Left: Big title */}
        
-            <div className="text-[clamp(64px,5vw,96px)] leading-[0.9] tracking-tight text-neutral-900">
+            <div className="text-[clamp(48px,8vw,72px)] md:text-[clamp(64px,5vw,96px)] leading-[0.9] tracking-tight text-neutral-900">
             {t.connect.split("\n").map((line, i) => (
               <span key={`${line}-${i}`}>
                 {line}

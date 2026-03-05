@@ -63,6 +63,7 @@ html.lenis {
   height: auto;
 }
 
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
@@ -81,4 +82,104 @@ html.lenis {
 @keyframes trustby-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(calc(var(--marquee-shift, 50%) * -1)); }
+}
+
+@keyframes module-image-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-module-image {
+  animation: module-image-pop 520ms ease-out;
+  will-change: transform, opacity;
+}
+
+@keyframes module-text-fade {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-module-text {
+  animation: module-text-fade 460ms ease-out;
+  will-change: transform, opacity, filter;
+}
+
+.jr-toggle-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.jr-toggle-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(23 23 23 / 0.35);
+  pointer-events: none;
+}
+
+.jr-toggle-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgb(23 23 23 / 0.95) 0 0) 0 0 / 0% 1.6px no-repeat,
+    linear-gradient(rgb(23 23 23 / 0.95) 0 0) 100% 0 / 1.6px 0% no-repeat,
+    linear-gradient(rgb(23 23 23 / 0.95) 0 0) 100% 100% / 0% 1.6px no-repeat,
+    linear-gradient(rgb(23 23 23 / 0.95) 0 0) 0 100% / 1.6px 0% no-repeat;
+  animation: jr-border-draw 1.6s linear infinite;
+}
+
+@keyframes jr-border-draw {
+  0% {
+    background-size: 0% 1.6px, 1.6px 0%, 0% 1.6px, 1.6px 0%;
+  }
+  25% {
+    background-size: 100% 1.6px, 1.6px 0%, 0% 1.6px, 1.6px 0%;
+  }
+  50% {
+    background-size: 100% 1.6px, 1.6px 100%, 0% 1.6px, 1.6px 0%;
+  }
+  75% {
+    background-size: 100% 1.6px, 1.6px 100%, 100% 1.6px, 1.6px 0%;
+  }
+  100% {
+    background-size: 100% 1.6px, 1.6px 100%, 100% 1.6px, 1.6px 100%;
+  }
+}
+
+/* Unified button hover: invert to black background + white text */
+button[class*="border"],
+a[class*="border"],
+.jr-toggle-button {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+button[class*="border"]:hover,
+a[class*="border"]:hover,
+.jr-toggle-button:hover {
+  background-color: rgb(23 23 23);
+  color: rgb(255 255 255);
+  border-color: rgb(23 23 23 / 1);
 }

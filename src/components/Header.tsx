@@ -1,8 +1,10 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLenis } from "../app/providers";
 import { HOME_TEXT } from "@/lib/homeLocale";
 
@@ -12,6 +14,7 @@ export default function Header() {
   const lenis = useLenis();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const locale = pathname?.startsWith("/zh") ? "zh" : "en";
   const t = HOME_TEXT[locale];
@@ -22,16 +25,36 @@ export default function Header() {
   const headerBarRef = useRef<HTMLDivElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hash, setHash] = useState("");
 
   const isHome = useMemo(() => pathname === "/" || pathname === "/zh", [pathname]);
+  const isLocaleLockedPage = useMemo(() => /^\/(?:zh\/)?(modules|products)\//.test(pathname), [pathname]);
   const allNavItems = [...leftNavItems, ...rightNavItems];
   const homePath = locale === "zh" ? "/zh" : "/";
+
+  const togglePath = useMemo(() => {
+    if (locale === "zh") {
+      const next = pathname.replace(/^\/zh(?=\/|$)/, "");
+      return next === "" ? "/" : next;
+    }
+    return pathname === "/" ? "/zh" : `/zh${pathname}`;
+  }, [locale, pathname]);
+
+  const search = searchParams.toString();
+  const toggleHref = `${togglePath}${search ? `?${search}` : ""}${hash}`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY >= THRESHOLD);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash || "");
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
   }, []);
 
   useEffect(() => {
@@ -122,10 +145,13 @@ export default function Header() {
           scrolled ? "bg-white/90 backdrop-blur-md border-b border-neutral-200" : "bg-transparent",
         ].join(" ")}
       >
-        <div className="mx-auto max-w-8xl px-6 md:px-15">
-          <div ref={headerBarRef} className="h-16 grid grid-cols-3 items-center">
+        <div className="mx-auto max-w-9xl px-0 md:px-15">
+          <div
+            ref={headerBarRef}
+            className="h-16 grid grid-cols-[1fr_auto_1fr] items-center gap-x-8"
+          >
             {/* Left (Desktop) */}
-            <nav className="hidden md:flex items-center justify-center gap-10 leading-[0.95] tracking-widest invert-header">
+            <nav className="hidden md:flex items-center justify-start gap-10 leading-[0.95] tracking-widest invert-header">
               {leftNavItems.map((item) => (
                 <a
                   key={item.href}
@@ -158,18 +184,31 @@ export default function Header() {
                 ))}
               </nav>
 
-              <Link
-                href={locale === "zh" ? "/" : "/zh"}
-                className={[
-                  "type-ui tracking-tight border px-3 py-1 text-xs uppercase",
-                  scrolled
-                    ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
-                    : "text-white/90 border-white/40 hover:border-white",
-                ].join(" ")}
-                aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
-              >
-                {locale === "zh" ? "EN" : "中文"}
-              </Link>
+              {isLocaleLockedPage ? (
+                <span
+                  className={[
+                    "type-ui tracking-tight border px-3 py-1 text-xs uppercase cursor-not-allowed opacity-60",
+                    scrolled ? "text-neutral-900 border-neutral-900/40" : "text-white/90 border-white/40",
+                  ].join(" ")}
+                  aria-label={locale === "zh" ? "Switch to English (disabled)" : "切換為中文（停用）"}
+                >
+                  {locale === "zh" ? "EN" : "中文"}
+                </span>
+              ) : (
+                <Link
+                  href={toggleHref}
+                  scroll={false}
+                  className={[
+                    "type-ui tracking-tight border px-3 py-1 text-xs uppercase",
+                    scrolled
+                      ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
+                      : "text-white/90 border-white/40 hover:border-white",
+                  ].join(" ")}
+                  aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
+                >
+                  {locale === "zh" ? "EN" : "中文"}
+                </Link>
+              )}
             </div>
 
             {/* Mobile */}
@@ -179,18 +218,31 @@ export default function Header() {
               </Link>
 
               <div className="flex items-center gap-3">
-                <Link
-                  href={locale === "zh" ? "/" : "/zh"}
-                  className={[
-                    "invert-header inline-flex items-center justify-center px-2.5 py-1 text-xs uppercase border",
-                    scrolled
-                      ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
-                      : "text-white/90 border-white/40 hover:border-white",
-                  ].join(" ")}
-                  aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
-                >
-                  {locale === "zh" ? "EN" : "中文"}
-                </Link>
+                {isLocaleLockedPage ? (
+                  <span
+                    className={[
+                      "inline-flex items-center justify-center px-2.5 py-1 text-xs uppercase border cursor-not-allowed opacity-60",
+                      scrolled ? "text-neutral-900 border-neutral-900/40" : "text-white/90 border-white/40",
+                    ].join(" ")}
+                    aria-label={locale === "zh" ? "Switch to English (disabled)" : "切換為中文（停用）"}
+                  >
+                    {locale === "zh" ? "EN" : "中文"}
+                  </span>
+                ) : (
+                  <Link
+                    href={toggleHref}
+                    scroll={false}
+                    className={[
+                      "inline-flex items-center justify-center px-2.5 py-1 text-xs uppercase border",
+                      scrolled
+                        ? "text-neutral-900 border-neutral-900/40 hover:border-neutral-900"
+                        : "text-white/90 border-white/40 hover:border-white",
+                    ].join(" ")}
+                    aria-label={locale === "zh" ? "Switch to English" : "切換為中文"}
+                  >
+                    {locale === "zh" ? "EN" : "中文"}
+                  </Link>
+                )}
 
                 <button
                   type="button"
@@ -198,7 +250,7 @@ export default function Header() {
                   aria-expanded={menuOpen}
                   onClick={() => setMenuOpen((v) => !v)}
                   className={[
-                    "invert-header inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors",
+                    "inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors",
                     scrolled ? "hover:bg-neutral-100" : "hover:bg-white/10",
                   ].join(" ")}
                 >

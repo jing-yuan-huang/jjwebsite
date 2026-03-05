@@ -25,6 +25,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       anchors: false, 
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLenis(l);
 
 

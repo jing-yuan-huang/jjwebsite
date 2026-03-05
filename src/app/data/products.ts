@@ -39,18 +39,18 @@ export const PRODUCTS: Record<Product["slug"], Product> = {
 
     slug: "j7m",
 
-    listTitle: "J7M \n Industrial",
+    listTitle: "Industrial \n AR Headset",
     listSubtitle:[ 
-      "Industrial-Grade",
-       "Head-Mounted AR Solution",
+      "An industrial-grade head-mounted AR solution ",
+       "designed for reliable field operations.",
       ],
     listPic: "/images/products/j7m/view-2.png",
     group: "heavyDuty",
    
-    titleTop: "J7M",
-    titleBottom: "Industrial",
+    titleTop: "Industrial",
+    titleBottom: "AR Headset",
     category: "INDUSTRIAL\nAR SOLUTION",
-    specButtonText: "J7M SPEC",
+    specButtonText: "SPEC",
     theme: "dark",
     heroBgClass: "bg-gradient-to-b from-neutral-950 to-indigo-700",
     heroImage: "/images/products/j7m/hero.png",
@@ -123,18 +123,18 @@ export const PRODUCTS: Record<Product["slug"], Product> = {
 
     slug: "hj1",
 
-    listTitle: "HJ1 \n Eye-Tracking ",
+    listTitle: "Eye-Tracking \n AR Glasses ",
     listSubtitle:[
-       "The World’s Smallest Eye-Tracking", 
-       "AR Reference Platform",
+       "The world’s smallest integrated eye-tracking module,", 
+       "enabling an AI-driven AR reference design platform.",
     ],
     listPic:"/images/products/hj1/view-4.png",
     group: "ultraLight",
 
-    titleTop: "HJ1",
-    titleBottom: "Eye-Tracking",
+    titleTop: "Eye-Tracking",
+    titleBottom: "AR Glasses",
     category: "ULTRA-LIGHT\nAR GLASSES",
-    specButtonText: "HJ1 SPEC",
+    specButtonText: "SPEC",
     theme: "light",
     heroBgClass: "bg-neutral-200",
     heroImage: "/images/products/hj1/hero.png",
@@ -205,18 +205,18 @@ export const PRODUCTS: Record<Product["slug"], Product> = {
 
     slug: "c9t2",
 
-    listTitle: "C9T2 \n Binocular Display ",
+    listTitle: "Binocular Display \n AR Glasses",
     listSubtitle: [ 
-      "Dual-Eye Ultra-Light",
-      "AR Glasses Platform",
+      "Binocular display architecture delivering a wider",
+      "and more immersive AR field of view.",
     ],
     listPic: "/images/products/c9t2/view-4.png",
     group: "ultraLight",
 
-    titleTop: "C9T2",
-    titleBottom: "Binocular Display",
+    titleTop: "Binocular Display",
+    titleBottom: "AR Glasses",
     category: "ULTRA-LIGHT\nAR GLASSES",
-    specButtonText: "C9T2 SPEC",
+    specButtonText: "SPEC",
     theme: "light",
     heroBgClass: "bg-neutral-100",
     heroImage: "/images/products/c9t2/hero.png",

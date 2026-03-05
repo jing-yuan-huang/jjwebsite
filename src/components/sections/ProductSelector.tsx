@@ -1,6 +1,8 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowIcon } from "@/components/ui/icons/ArrowIcon";
 import { PRODUCTS } from "@/app/data/products";
 import type { HomeLocale } from "@/lib/homeLocale";
@@ -9,7 +11,7 @@ import { HOME_TEXT, PRODUCT_LIST_OVERRIDES } from "@/lib/homeLocale";
 type ProductSelectorItem = {
   id: string;
   title: string;
-  subtitle: string[];
+  subtitle: readonly string[];
   image: string;
   theme?: "light" | "dark";
   href?: string; // 
@@ -17,8 +19,9 @@ type ProductSelectorItem = {
 };
 
 function toSelectorItems(locale: HomeLocale): ProductSelectorItem[] {
+  const zhOverrides = PRODUCT_LIST_OVERRIDES.zh;
   return Object.values(PRODUCTS).map((p) => {
-    const override = locale === "zh" ? (PRODUCT_LIST_OVERRIDES.zh as any)[p.slug] : null;
+    const override = locale === "zh" ? zhOverrides[p.slug] : undefined;
     return {
       id: p.slug,
       title: override?.listTitle ?? p.listTitle,
@@ -26,7 +29,7 @@ function toSelectorItems(locale: HomeLocale): ProductSelectorItem[] {
       image: p.listPic,
       theme: p.theme,
       href:
-        (p as any).hasDetailPage === false || p.group === "jReality"
+        p.hasDetailPage === false || p.group === "jReality"
           ? undefined
           : `/products/${p.slug}`,
       group: p.group,
@@ -37,10 +40,17 @@ function toSelectorItems(locale: HomeLocale): ProductSelectorItem[] {
 export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale }) {
   const t = HOME_TEXT[locale].productSection;
   const items = toSelectorItems(locale);
+  const jrDescription =
+    locale === "zh"
+      ? "延續佐臻多年累積的 AR 光學與系統整合經驗 , J-Reality 系列提供多樣化的 AR 裝置平台，\n廣泛應用於工業作業、智慧工作流程與沉浸式互動場景。"
+      : "Building on Jorjin’s years of expertise in AR optics and system integration,the J-Reality series offers a versatile AR device platform\ndesigned for industrial applications, intelligent workflows, and immersive experiences.";
 
   const ultra = items.filter((i) => i.group === "ultraLight");
   const heavy = items.filter((i) => i.group === "heavyDuty");
   const jr = items.filter((i) => i.group === "jReality");
+  const jrPrimary = jr[0];
+  const jrRest = jr.slice(1);
+  const [jrOpen, setJrOpen] = useState(false);
 
   
   const RowInner = ({ item }: { item: ProductSelectorItem }) => {
@@ -70,7 +80,7 @@ export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale
               </div>
   
               {/* Subtitle bottom */}
-              <div className="text-[clamp(15px,1.4vw,20px)] md:text-[clamp(17px,1.1vw,24px)] leading-[0.9] text-neutral-600 space-y-1">
+              <div className="whitespace-pre-line text-[clamp(15px,1.4vw,20px)] md:text-[clamp(17px,1.1vw,24px)] leading-[0.95] text-neutral-600 space-y-1">
                 {item.subtitle.map((line, i) => (
                   <div key={i}>{line}</div>
                 ))}
@@ -123,8 +133,7 @@ export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale
   };
   const renderRow = (item: ProductSelectorItem) => {
     const clickable = !!item.href;
-    const Wrapper: any = clickable ? Link : "div";
-  
+    
     return (
       <div
         key={item.id}
@@ -133,18 +142,29 @@ export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale
           clickable ? "group transition-colors" : "",
         ].join(" ")}
       >
-        <Wrapper
-          {...(clickable ? { href: item.href, scroll: true } : {})}
-          className={[
-            "block w-full text-left py-6 md:py-8",
-            clickable ? "" : "cursor-default",
-          ].join(" ")}
-        >
-          <RowInner item={item} />
-        </Wrapper>
+        {clickable && item.href ? (
+          <Link href={item.href} scroll className="block w-full text-left py-6 md:py-8">
+            <RowInner item={item} />
+          </Link>
+        ) : (
+          <div className="block w-full cursor-default text-left py-6 md:py-8">
+            <RowInner item={item} />
+          </div>
+        )}
       </div>
     );
   };
+  const jrToggleButton = (
+    <button
+      type="button"
+      onClick={() => setJrOpen((v) => !v)}
+      className="jr-toggle-button group inline-flex items-center justify-center px-8 py-3 text-[11px] tracking-[0.22em] text-neutral-900 uppercase"
+      aria-expanded={jrOpen}
+    >
+      <span className="relative z-10">{t.jrToggle}</span>
+      <span className="relative z-10 ml-3 text-base leading-none">{jrOpen ? "−" : "+"}</span>
+    </button>
+  );
 
   return (
     <section className="mx-auto max-w-8xl px-6 md:px-15 pt-20 md:pt-28 pb-15">
@@ -177,16 +197,44 @@ export default function ProductSelector({ locale = "en" }: { locale?: HomeLocale
       {/* J-Reality */}
         <div className="pt-16">
           <div className="mb-8">
-            <h2 className="text-[clamp(40px,6vw,92px)] leading-[0.95] tracking-tight text-neutral-900">
-              {t.jrTitle}
-            </h2>
-            <div className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
-             {t.jrSubtitle}
+            <div>
+              <h2 className="text-[clamp(40px,6vw,92px)] leading-[0.95] tracking-tight text-neutral-900">
+                {t.jrTitle}
+              </h2>
+              <div className="mt-3 text-[clamp(18px,2vw,28px)] tracking-tight text-neutral-900/80 leading-[0.95]">
+                {t.jrSubtitle}
+              </div>
+              <p className="mt-5 w-full whitespace-pre-line text-[clamp(14px,1.2vw,18px)] leading-relaxed text-neutral-700">
+                {jrDescription}
+              </p>
             </div>
           </div>
-          <div className="border-t border-neutral-900">{jr.map(renderRow)}</div>
+
+          {jrPrimary ? (
+            <div className="border-t border-neutral-900">{renderRow(jrPrimary)}</div>
+          ) : null}
+
+          {jrRest.length > 0 && !jrOpen ? (
+            <div className="mt-8 flex justify-center">
+              {jrToggleButton}
+            </div>
+          ) : null}
+
+          {jrRest.length > 0 ? (
+            <div
+              className={[
+                "overflow-hidden transition-[max-height,opacity] duration-500",
+                jrOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0",
+              ].join(" ")}
+            >
+              {jrRest.map(renderRow)}
+            </div>
+          ) : null}
+
+          {jrRest.length > 0 && jrOpen ? (
+            <div className="mt-8 flex justify-center">{jrToggleButton}</div>
+          ) : null}
         </div>
-      
     </section>
   );
 }

@@ -1,26 +1,25 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 type Logo = { alt: string; src: string };
 
 const logos: Logo[] = [
   { alt: "ganzin", src: "/logos/ganzin.svg" },
-  { alt: "GIS", src: "/logos/gis.svg" },
   { alt: "cellid", src: "/logos/cellid.svg" },
-  { alt: "PORTECH", src: "/logos/portech.svg" },
   { alt: "Epson", src: "/logos/epson.svg" },
-  { alt: "Foxconn", src: "/logos/Foxconn.svg" },
+  
 ];
 
 export default function TrustByMarquee() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const [copies, setCopies] = useState(2);
 
-  // 粗估：一組logo的寬度（logo數 * 每個block寬 + gap）
-  // 你目前每個 logo 容器大概 28~32 * (含 gap)；我們寧可估大一點避免露白
+  
   const approxOneSetWidth = logos.length * (128 + 48); // 128=logo block，48=gap 12*4
-  // 用 viewport 寬度決定 copies：至少要讓「一組」>= viewport，並且至少 2 組才能無縫
+ 
   useEffect(() => {
     if (!viewportRef.current) return;
 
@@ -28,9 +27,8 @@ export default function TrustByMarquee() {
     const ro = new ResizeObserver(() => {
       const vw = el.clientWidth;
 
-      // 讓 1 組的寬度至少覆蓋 viewport * 1.2（留安全邊際）
+    
       const needSets = Math.ceil((vw * 1.2) / approxOneSetWidth);
-      // 無縫必須至少 2 組，且再多補一組避免邊界瞬間露白
       const nextCopies = Math.max(2, needSets + 2);
 
       setCopies(nextCopies);
@@ -44,6 +42,9 @@ export default function TrustByMarquee() {
     () => Array.from({ length: copies }, () => logos).flat(),
     [copies]
   );
+  const trackStyle: CSSProperties & Record<"--marquee-shift", string> = {
+    "--marquee-shift": `${100 / copies}%`,
+  };
 
   return (
     <section className="w-full">
@@ -56,11 +57,7 @@ export default function TrustByMarquee() {
       
             <div
               className="trustby-track flex w-max items-center gap-12 py-4"
-              style={
-                {
-                  ["--marquee-shift" as any]: `${100 / copies}%`,
-                } as React.CSSProperties
-              }
+              style={trackStyle}
             >
               {track.map((logo, idx) => (
                 <div key={`${logo.alt}-${idx}`} className="flex items-center justify-center">

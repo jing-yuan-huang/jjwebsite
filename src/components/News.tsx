@@ -11,9 +11,9 @@ type UpdateItem = {
 };
 
 const UPDATE_STYLE = [
-  { id: "ces", bg: "bg-[#A6261C]", text: "text-white" },
-  { id: "milo", bg: "bg-[#E0472A]", text: "text-white" },
-  { id: "mwc", bg: "bg-[#0F171A]", text: "text-white" },
+  { id: "ces", bg: "bg-neutral-200", text: "text-neutral-900" },
+  { id: "milo", bg: "bg-neutral-300", text: "text-neutral-900" },
+  { id: "mwc", bg: "bg-neutral-500", text: "text-white" },
 ];
 
 export default function Updates({ locale = "en" }: { locale?: HomeLocale }) {
@@ -28,11 +28,11 @@ export default function Updates({ locale = "en" }: { locale?: HomeLocale }) {
   });
 
   return (
-    <section className="bg- white">
+    <section className="bg-white">
       <div className="mx-auto mt-30 ">
         {/* ===== Header ===== */}
         <div className="mx-auto max-w-8xl px-6 md:px-15">
-          <h2 className="type-[42px] md:text-[96px] tracking-tight text-neutral-900">
+          <h2 className="text-[clamp(36px,8vw,64px)] md:text-[96px] tracking-tight text-neutral-900">
             {t.title}
           </h2>
         </div>

@@ -69,14 +69,14 @@ export default function SmartGlassesHero({ locale = "en" }: { locale?: HomeLocal
   };
 
   return (
-    <section ref={sectionRef} className="relative isolation-isolate mt-50 mb-20">
+    <section ref={sectionRef} className="relative isolation-isolate mt-12 mb-8 md:mt-50 md:mb-20">
       <div className="absolute inset-0 z-0 bg-white" />
 
       <div className="mx-auto max-w-8xl px-6 md:px-15">
         <div className="px-4 md:px-10 lg:px-25">
           <div
             ref={videoBoxRef}
-            className="relative mt-[3vw] aspect-[16/8] overflow-hidden"
+            className="relative mt-[3vw] aspect-[16/10] md:aspect-[16/8] overflow-hidden"
           >
             <video
               ref={videoRef}

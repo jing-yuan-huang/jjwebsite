@@ -1,13 +1,13 @@
-import { ArrowIcon } from "../ui/icons/ArrowIcon";
 import type { HomeLocale } from "@/lib/homeLocale";
 import { HOME_TEXT } from "@/lib/homeLocale";
+import ModuleMenu from "./ModuleMenu";
 
 export default function ModuleSection({ locale = "en" }: { locale?: HomeLocale }) {
     const t = HOME_TEXT[locale].module;
     const bodyLines = t.body.split("\n");
     return (
       <section id="module" className="bg-white">
-        <div className="mx-auto max-w-8xl px-6 py-10 md:px-15 md:py-[clamp(64px,8vw,160px)] ">
+        <div className="mx-auto max-w-8xl px-6 py-0 md:px-15 md:py-0 mt-[70px] md:mt-[100px] lg:mt-[130px]">
           <div className="grid grid-cols-12 gap-8 md:gap-12 items-center">
             
             {/* Left text */}
@@ -52,6 +52,8 @@ export default function ModuleSection({ locale = "en" }: { locale?: HomeLocale }
             </div>
           </div>
         </div>
+
+        <ModuleMenu />
       </section>
     );
   }
