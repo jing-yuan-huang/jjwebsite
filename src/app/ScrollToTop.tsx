@@ -21,9 +21,13 @@ export default function ScrollToTop() {
       return;
     }
 
-    // 可依需求調整：instant / smooth
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // Force top on route changes; smooth scrolling may land mid-page during layout shifts.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const rafId = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
     prevPathnameRef.current = pathname;
+    return () => cancelAnimationFrame(rafId);
   }, [pathname]);
 
   return null;

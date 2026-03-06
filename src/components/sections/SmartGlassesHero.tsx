@@ -69,7 +69,7 @@ export default function SmartGlassesHero({ locale = "en" }: { locale?: HomeLocal
   };
 
   return (
-    <section ref={sectionRef} className="relative isolation-isolate mt-12 mb-8 md:mt-50 md:mb-20">
+    <section ref={sectionRef} className="relative isolation-isolate mt-0 mb-8 md:mt-0 md:mb-20">
       <div className="absolute inset-0 z-0 bg-white" />
 
       <div className="mx-auto max-w-8xl px-6 md:px-15">

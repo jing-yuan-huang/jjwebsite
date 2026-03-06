@@ -1,6 +1,5 @@
 import type { HomeLocale } from "@/lib/homeLocale";
 import { HOME_TEXT } from "@/lib/homeLocale";
-import { buttonClass } from "@/components/ui/Button";
 
 const CAPABILITIES = {
   en: {
@@ -52,7 +51,6 @@ export default function AboutPage({ locale = "en" }: { locale?: HomeLocale }) {
     const capabilities = CAPABILITIES[locale];
     const subtitleLines = t.subtitle.split("\n");
     const bodyLines = t.body.split("\n");
-    const investorHref = locale === "zh" ? "/zh/investor" : "/investor";
     return (
       <main className="bg-white">
         <section className="mx-auto px-6 md:px-15 py-28">
@@ -100,17 +98,6 @@ export default function AboutPage({ locale = "en" }: { locale?: HomeLocale }) {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="mt-8 max-w-2xl px-2 md:px-0 text-left md:text-right md:ml-auto">
-                <a
-                  href={investorHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={buttonClass}
-                >
-                  {t.investorButton}
-                </a>
               </div>
             </div>
           </div>

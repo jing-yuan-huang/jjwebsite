@@ -17,7 +17,7 @@ export const HOME_TEXT = {
       subtitle: "Enabling the Future of AR/XR Smart Glasses and Immersive Interaction​",
       body:
         "Founded in 1997, JORJIN Technologies specializes in AR/XR smart glasses and immersive interaction solutions.​ By integrating expertise in optics, sensing, ergonomics, and hardware–software development, we provide advanced product design and system integration, enabling innovative AR applications across enterprise, academic, and public sectors. ",
-      investorButton: "Invester",
+      investorButton: "Investor",
     },
     news: {
       title: "News",
@@ -56,7 +56,7 @@ export const HOME_TEXT = {
       menuTitle: "Menu",
       menuProduct: "Product",
       menuUpdate: "Update",
-      menuAbout: "About JORJIN",
+      menuAbout: "About",
       socialTitle: "Social",
       companyName: "JORJIN TECHNOLOGIES INC.",
       address: "17F, No 239, Sec. 1, Datong Rd.\nXizhi Dist., New Taipei City 22161, Taiwan",

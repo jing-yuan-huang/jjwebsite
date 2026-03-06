@@ -19,7 +19,7 @@ export default function Header() {
   const t = HOME_TEXT[locale];
 
   const leftNavItems = t.navLeft;
-  const rightNavItems = t.navRight;
+  const rightNavItems = t.navRight.filter((item) => item.label !== "News" && item.label !== "最新消息");
 
   const headerBarRef = useRef<HTMLDivElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -163,7 +163,7 @@ export default function Header() {
             </nav>
 
             {/* Center Logo (Desktop) */}
-            <Link href={homePath} className="hidden md:block invert-header justify-self-center">
+            <Link href={homePath} className="hidden md:block justify-self-center">
               <img src="/images/jorjin-logo.svg" alt="JORJIN" className="h-6 w-auto" />
             </Link>
 
@@ -211,7 +211,7 @@ export default function Header() {
 
             {/* Mobile */}
             <div className="md:hidden col-span-3 flex items-center justify-between">
-              <Link href={homePath} className="invert-header">
+              <Link href={homePath}>
                 <img src="/images/jorjin-logo.svg" alt="JORJIN" className="h-6 w-auto" />
               </Link>
 

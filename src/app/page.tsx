@@ -1,6 +1,7 @@
 import Innovations from "../components/sections/Innovations";
-import TrustByMarquee from "../components/TrustByMarquee";
-import Updates from "../components/News";
+//import TrustByMarquee from "../components/TrustByMarquee";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+//import Updates from "../components/News";
 import About from "../components/About";
 //import Contact from "../components/Contact";
 
@@ -17,10 +18,11 @@ export default function HomePage() {
           playsInline
         />
       </section>
-
+      {/*
       <section>
         <TrustByMarquee />
       </section>
+      */}
 
       <section id="smartglasses">
         <Innovations variant="smartglasses" locale="en" />
@@ -34,9 +36,11 @@ export default function HomePage() {
         <Innovations variant="metaspace" locale="en" />
       </section>
 
+      {/*
       <section id="updates">
         <Updates locale="en" />
       </section>
+      */}
 
       <section id="about">
         <About locale="en" />

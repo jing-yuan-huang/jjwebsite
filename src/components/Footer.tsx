@@ -7,6 +7,8 @@ export default function Footer() {
   const pathname = usePathname();
   const locale = pathname?.startsWith("/zh") ? "zh" : "en";
   const t = HOME_TEXT[locale].footer;
+  const investorHref = locale === "zh" ? "/zh/investor" : "/investor";
+  const investorLabel = HOME_TEXT[locale].about.investorButton;
 
     return (
       <footer className="bg-neutral-200 text-neutral-900">
@@ -21,13 +23,22 @@ export default function Footer() {
   
               <nav className="mt-6 flex flex-col items-start gap-4 text-left text-[18px]">
                 <a href="#smartglasses" className="block underline underline-offset-4">
-                  {t.menuProduct}
+                  {locale === "zh" ? "AR 智慧眼鏡" : "AR smart glasses"}
                 </a>
-                <a href="#updates" className="block underline underline-offset-4">
+                {/* <a href="#updates" className="block underline underline-offset-4">
                   {locale === "zh" ? t.menuUpdate : "News"}
+                </a> */}
+                <a href="#module" className="block underline underline-offset-4">
+                  {locale === "zh" ? "模組" : "module"}
+                </a>
+                <a href="#metaspace" className="block underline underline-offset-4">
+                  {locale === "zh" ? "沈浸式投影空間" : "Metaspace"}
                 </a>
                 <a href="#about" className="block underline underline-offset-4">
-                  {t.menuAbout}
+                  {locale === "zh" ? t.menuAbout : "about"}
+                </a>
+                <a href={investorHref} className="block underline underline-offset-4">
+                  {investorLabel}
                 </a>
               </nav>
             </div>

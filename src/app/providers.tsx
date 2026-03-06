@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,6 +16,8 @@ export function useLenis() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
+  const pathname = usePathname();
+  const prevPathRef = useRef<string | null>(null);
 
   useEffect(() => {
     const l = new Lenis({
@@ -69,6 +72,28 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       ScrollTrigger.killAll();
     };
   }, []);
+
+  useEffect(() => {
+    const prevPath = prevPathRef.current;
+    const isHomeSwitch =
+      prevPath !== null &&
+      ((prevPath === "/" && pathname === "/zh") || (prevPath === "/zh" && pathname === "/"));
+    prevPathRef.current = pathname;
+    if (isHomeSwitch) return;
+
+    // Keep Next.js and Lenis scroll positions aligned on route changes.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+    const rafId = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [pathname, lenis]);
 
   return <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>;
 }

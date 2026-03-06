@@ -359,5 +359,6 @@ export const MODULES: Record<ModuleData["slug"], ModuleData> = {
       { label: "Dimensions", value: "15.5 mm (L) × 5.5 mm (W) × 1.8 mm (H)" },
       { label: "Temperature Range", value: "−40°C ~ 85°C" },
     ],
+    datasheetUrl: "https://drive.google.com/file/d/1rfqbIEHMj-ilDContEnjFeSzaMQJtTHG/view?usp=sharing",
   },
 };
