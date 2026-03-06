@@ -58,7 +58,7 @@ export default function Footer() {
                   Facebook
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/jorjin-technologies-inc/"
+                  href="https://www.linkedin.com/company/jorjin-technologies-inc-/posts/?feedView=all"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block underline underline-offset-4"
